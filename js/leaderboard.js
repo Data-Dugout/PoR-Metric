@@ -126,11 +126,24 @@
     document.getElementById('f-pos').addEventListener('change', applyFiltersAndSort);
     document.getElementById('f-pa').addEventListener('change', applyFiltersAndSort);
 
+    var poronly = document.getElementById('f-poronly');
+    poronly.addEventListener('change', function () {
+      document.getElementById('leaderboard').classList.toggle('por-only', poronly.checked);
+    });
+
+    // default Year to the most recent season present in the data
+    var years = uniqueSorted(rows, 'Year').map(Number).filter(function (n) { return !isNaN(n); });
+    var mostRecentYear = years.length ? Math.max.apply(null, years) : '';
+    var yearSelect = document.getElementById('f-year');
+    if (mostRecentYear !== '') yearSelect.value = String(mostRecentYear);
+
     document.getElementById('reset-filters').addEventListener('click', function () {
-      document.getElementById('f-year').value = '';
+      document.getElementById('f-year').value = mostRecentYear !== '' ? String(mostRecentYear) : '';
       document.getElementById('f-team').value = '';
       document.getElementById('f-pos').value = '';
       document.getElementById('f-pa').value = '0';
+      poronly.checked = false;
+      document.getElementById('leaderboard').classList.remove('por-only');
       applyFiltersAndSort();
     });
 
