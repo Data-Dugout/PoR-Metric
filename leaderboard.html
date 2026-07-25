@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PoR Leaderboard</title>
+<link rel="stylesheet" href="css/style.css">
+<style>
+  .filterbar{
+    display:flex; flex-wrap:wrap; gap:14px; align-items:flex-end;
+    background:var(--cream-050); border:1px solid var(--line); border-radius:var(--radius);
+    padding:18px 20px; margin-bottom:20px;
+  }
+  .filterbar .field{display:flex; flex-direction:column; gap:5px;}
+  .filterbar label{font-family:'IBM Plex Mono',monospace; font-size:.72rem; text-transform:uppercase; letter-spacing:.06em; color:var(--turf-900);}
+  .filterbar select{
+    font-family:'Public Sans',sans-serif; font-size:.9rem; padding:8px 10px;
+    border:1px solid var(--ink-900); border-radius:var(--radius); background:#fff; color:var(--ink-900);
+    min-width:130px;
+  }
+  .filterbar .reset{
+    background:none; border:1px solid var(--turf-900); color:var(--turf-900);
+    padding:8px 14px; border-radius:var(--radius); font-size:.85rem; cursor:pointer; height:fit-content;
+  }
+  .filterbar .reset:hover{background:var(--turf-900); color:var(--cream-100);}
+  #leaderboard th{cursor:pointer; white-space:nowrap; user-select:none;}
+  #leaderboard th .arrow{opacity:.4; font-size:.75em; margin-left:3px;}
+  #leaderboard th.sorted .arrow{opacity:1; color:var(--clay-500);}
+  #leaderboard td.name{font-family:'Public Sans',sans-serif; font-weight:600;}
+  .rowcount{font-family:'IBM Plex Mono',monospace; font-size:.82rem; opacity:.7; margin:0 0 12px;}
+  .por-high{color:var(--turf-700); font-weight:600;}
+  .por-low{color:var(--clay-500); font-weight:600;}
+  .placeholder-note{
+    background:#FCEFD8; border:1px solid var(--amber-400); border-radius:var(--radius);
+    padding:12px 16px; font-size:.88rem; margin-bottom:24px;
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <nav class="nav">
+    <a href="index.html" class="brand">PoR <span>/</span> Progression or Regression</a>
+    <button class="navtoggle" aria-label="Toggle navigation">Menu</button>
+    <ul class="navlinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="article.html">The Article</a></li>
+      <li><a href="methodology.html">Methodology</a></li>
+      <li><a href="results.html">Results</a></li>
+      <li><a href="leaderboard.html" class="active">Leaderboard</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <section class="pagehero">
+    <div class="wrap" style="max-width:72ch;">
+      <p class="eyebrow">Leaderboard</p>
+      <h1>PoR Player Table</h1>
+      <p style="opacity:.75;">Filter by year, team, position, and playing time. Click any column header to sort.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+
+      <div class="placeholder-note">
+        <strong>Sample data only.</strong> This table is wired up with placeholder rows
+        so you can test filtering and sorting. Replace <code>data/players.csv</code>
+        with your real export — same column order — and it'll populate automatically.
+      </div>
+
+      <div class="filterbar">
+        <div class="field">
+          <label for="f-year">Year</label>
+          <select id="f-year"><option value="">All</option></select>
+        </div>
+        <div class="field">
+          <label for="f-team">Team</label>
+          <select id="f-team"><option value="">All</option></select>
+        </div>
+        <div class="field">
+          <label for="f-pos">Position</label>
+          <select id="f-pos"><option value="">All</option></select>
+        </div>
+        <div class="field">
+          <label for="f-pa">Min. PA</label>
+          <select id="f-pa">
+            <option value="0">All</option>
+            <option value="100">100+</option>
+            <option value="200">200+</option>
+            <option value="300">300+</option>
+            <option value="400">400+</option>
+            <option value="500">500+</option>
+          </select>
+        </div>
+        <button class="reset" id="reset-filters">Reset filters</button>
+      </div>
+
+      <p class="rowcount" id="rowcount">Loading player data&hellip;</p>
+
+      <div class="table-wrap">
+        <table id="leaderboard">
+          <thead>
+            <tr>
+              <th data-key="Name" data-type="string">Name <span class="arrow">&#8597;</span></th>
+              <th data-key="Team" data-type="string">Team <span class="arrow">&#8597;</span></th>
+              <th data-key="PA" data-type="number">PA <span class="arrow">&#8597;</span></th>
+              <th data-key="PoR" data-type="number">PoR <span class="arrow">&#8597;</span></th>
+              <th data-key="BA" data-type="number">BA <span class="arrow">&#8597;</span></th>
+              <th data-key="xBA" data-type="number">xBA <span class="arrow">&#8597;</span></th>
+              <th data-key="BA_Diff" data-type="number">BA Diff <span class="arrow">&#8597;</span></th>
+              <th data-key="SLG" data-type="number">SLG <span class="arrow">&#8597;</span></th>
+              <th data-key="xSLG" data-type="number">xSLG <span class="arrow">&#8597;</span></th>
+              <th data-key="SLG_Diff" data-type="number">SLG Diff <span class="arrow">&#8597;</span></th>
+              <th data-key="wOBA" data-type="number">wOBA <span class="arrow">&#8597;</span></th>
+              <th data-key="xwOBA" data-type="number">xwOBA <span class="arrow">&#8597;</span></th>
+              <th data-key="OBA_Diff" data-type="number">OBA Diff <span class="arrow">&#8597;</span></th>
+              <th data-key="BABIP" data-type="number">BABIP <span class="arrow">&#8597;</span></th>
+            </tr>
+          </thead>
+          <tbody id="leaderboard-body">
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="fine">PoR &middot; built on public Baseball Savant &amp; FanGraphs data, 2021&ndash;2026</div>
+    <div style="display:flex; gap:20px;">
+      <a href="index.html">Home</a>
+      <a href="results.html">Results</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/leaderboard.js"></script>
+</body>
+</html>

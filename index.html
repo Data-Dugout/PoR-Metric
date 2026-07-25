@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PoR — Progression or Regression | A Predictive Hitting Metric</title>
+<meta name="description" content="PoR is a predictive metric that identifies which MLB hitters are due to improve or decline, built from four seasons of batted-ball luck data.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site">
+  <nav class="nav">
+    <a href="index.html" class="brand">PoR <span>/</span> Progression or Regression</a>
+    <button class="navtoggle" aria-label="Toggle navigation">Menu</button>
+    <ul class="navlinks">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="article.html">The Article</a></li>
+      <li><a href="methodology.html">Methodology</a></li>
+      <li><a href="results.html">Results</a></li>
+      <li><a href="leaderboard.html">Leaderboard</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">A Sabermetric Hitting Metric</p>
+        <h1>Some hitters aren't as good — or as bad — as their stat line says.</h1>
+        <p style="font-size:1.15rem; max-width:52ch; opacity:.85;">
+          PoR (Progression or Regression) measures how much of a hitter's season was
+          skill versus batted-ball luck — and uses that gap to flag who's likely to
+          swing the other way next year.
+        </p>
+        <div style="display:flex; gap:14px; flex-wrap:wrap; margin-top:24px;">
+          <a href="article.html" class="btn">Read the article</a>
+          <a href="results.html" class="btn ghost">See the data</a>
+        </div>
+      </div>
+
+      <div class="scorecard">
+        <span class="tag">Validated 2021–2024</span>
+        <div class="stat-label" style="margin-top:6px;">High-PoR hitters (below-average, 502+ PA the following year) improved&hellip;</div>
+        <div class="stat">90.0<sup>%</sup></div>
+        <div class="stat-label">of the time — 45 of 50 qualifying player-seasons.</div>
+        <hr>
+        <div class="ledger">
+          <div class="yr">2021<b>77.8%</b></div>
+          <div class="yr">2022<b>76.5%</b></div>
+          <div class="yr">2023<b>100%</b></div>
+          <div class="yr">2024<b>95.0%</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Why it exists</p>
+        <h2>Batting average lies to you at least once a season.</h2>
+        <p>A hitter can scorch the ball all year and have nothing to show for it, or
+        get bloop singles all August and look like a star. PoR isolates that gap —
+        actual outcomes minus expected outcomes on contact — and turns it into a
+        single 0–100 score.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <div class="num">1,423</div>
+          <div class="cap">qualified player-seasons tested, 2021–2024</div>
+        </div>
+        <div class="card">
+          <div class="num">4</div>
+          <div class="cap">inputs: BA, SLG, wOBA, and BABIP vs. expected</div>
+        </div>
+        <div class="card">
+          <div class="num">94.3%</div>
+          <div class="cap">accuracy at the tightest confidence threshold (500+ PA, wRC+ 90/110 split)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="grid-2">
+        <div class="card" style="padding:28px;">
+          <h3>Progression candidates</h3>
+          <p>Below-average hitters (wRC+ &lt; 100) who got unlucky — high PoR score,
+          low actual production. History says they're due for a jump.</p>
+          <a href="methodology.html">How the score is built &rarr;</a>
+        </div>
+        <div class="card" style="padding:28px;">
+          <h3>Regression candidates</h3>
+          <p>Above-average hitters (wRC+ &gt; 100) who got lucky — low PoR score,
+          strong actual production. History says the shine wears off.</p>
+          <a href="results.html">See the full breakdown &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="fine">PoR &middot; built on public Baseball Savant &amp; FanGraphs data, 2021&ndash;2024</div>
+    <div style="display:flex; gap:20px;">
+      <a href="article.html">Article</a>
+      <a href="methodology.html">Methodology</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

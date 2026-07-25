@@ -1,0 +1,162 @@
+(function () {
+  var DATA_URL = 'data/players.csv';
+  var NUMERIC_COLS = ['PA','PoR','BA','xBA','BA_Diff','SLG','xSLG','SLG_Diff','wOBA','xwOBA','OBA_Diff','BABIP'];
+  var DECIMAL_COLS = ['BA','xBA','BA_Diff','SLG','xSLG','SLG_Diff','wOBA','xwOBA','OBA_Diff','BABIP'];
+
+  var allRows = [];
+  var sortKey = 'PoR';
+  var sortDir = 'desc';
+
+  function parseCSV(text) {
+    var lines = text.trim().split(/\r?\n/);
+    var headers = lines[0].split(',').map(function (h) { return h.trim(); });
+    var rows = [];
+    for (var i = 1; i < lines.length; i++) {
+      if (!lines[i].trim()) continue;
+      var cells = lines[i].split(',');
+      var row = {};
+      headers.forEach(function (h, idx) {
+        var raw = cells[idx] !== undefined ? cells[idx].trim() : '';
+        row[h] = NUMERIC_COLS.indexOf(h) !== -1 ? parseFloat(raw) : raw;
+      });
+      rows.push(row);
+    }
+    return rows;
+  }
+
+  function uniqueSorted(rows, key) {
+    var set = {};
+    rows.forEach(function (r) { if (r[key]) set[r[key]] = true; });
+    return Object.keys(set).sort();
+  }
+
+  function populateFilter(selectEl, values) {
+    values.forEach(function (v) {
+      var opt = document.createElement('option');
+      opt.value = v;
+      opt.textContent = v;
+      selectEl.appendChild(opt);
+    });
+  }
+
+  function formatCell(key, value) {
+    if (value === undefined || value === null || value === '' || (typeof value === 'number' && isNaN(value))) return '&mdash;';
+    if (key === 'PoR') return Number(value).toFixed(1);
+    if (DECIMAL_COLS.indexOf(key) !== -1) {
+      var s = Number(value).toFixed(3);
+      return (value >= 0 && key.indexOf('Diff') !== -1 ? '+' : '') + s;
+    }
+    return value;
+  }
+
+  function porClass(value) {
+    if (value >= 60) return 'por-high';
+    if (value <= 40) return 'por-low';
+    return '';
+  }
+
+  function applyFiltersAndSort() {
+    var year = document.getElementById('f-year').value;
+    var team = document.getElementById('f-team').value;
+    var pos = document.getElementById('f-pos').value;
+    var minPA = parseInt(document.getElementById('f-pa').value, 10) || 0;
+
+    var filtered = allRows.filter(function (r) {
+      if (year && String(r.Year) !== String(year)) return false;
+      if (team && r.Team !== team) return false;
+      if (pos && r.Position !== pos) return false;
+      if ((r.PA || 0) < minPA) return false;
+      return true;
+    });
+
+    filtered.sort(function (a, b) {
+      var av = a[sortKey], bv = b[sortKey];
+      var cmp;
+      if (typeof av === 'number' && typeof bv === 'number') {
+        cmp = av - bv;
+      } else {
+        cmp = String(av).localeCompare(String(bv));
+      }
+      return sortDir === 'asc' ? cmp : -cmp;
+    });
+
+    renderRows(filtered);
+    document.getElementById('rowcount').textContent =
+      filtered.length + (filtered.length === 1 ? ' player shown' : ' players shown') +
+      ' (out of ' + allRows.length + ' total)';
+  }
+
+  function renderRows(rows) {
+    var cols = ['Name','Team','PA','PoR','BA','xBA','BA_Diff','SLG','xSLG','SLG_Diff','wOBA','xwOBA','OBA_Diff','BABIP'];
+    var tbody = document.getElementById('leaderboard-body');
+    if (rows.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="14" style="text-align:center; opacity:.6; padding:24px;">No players match these filters.</td></tr>';
+      return;
+    }
+    var html = rows.map(function (r) {
+      var cells = cols.map(function (c) {
+        var cls = c === 'Name' ? ' class="name"' : (c === 'PoR' ? ' class="' + porClass(r.PoR) + '"' : '');
+        return '<td' + cls + '>' + formatCell(c, r[c]) + '</td>';
+      }).join('');
+      return '<tr>' + cells + '</tr>';
+    }).join('');
+    tbody.innerHTML = html;
+  }
+
+  function updateSortHeaders() {
+    document.querySelectorAll('#leaderboard th').forEach(function (th) {
+      th.classList.toggle('sorted', th.dataset.key === sortKey);
+      var arrow = th.querySelector('.arrow');
+      if (th.dataset.key === sortKey) {
+        arrow.innerHTML = sortDir === 'asc' ? '&uarr;' : '&darr;';
+      } else {
+        arrow.innerHTML = '&#8597;';
+      }
+    });
+  }
+
+  function init(rows) {
+    allRows = rows;
+    populateFilter(document.getElementById('f-year'), uniqueSorted(rows, 'Year').sort().reverse());
+    populateFilter(document.getElementById('f-team'), uniqueSorted(rows, 'Team'));
+    populateFilter(document.getElementById('f-pos'), uniqueSorted(rows, 'Position'));
+
+    document.getElementById('f-year').addEventListener('change', applyFiltersAndSort);
+    document.getElementById('f-team').addEventListener('change', applyFiltersAndSort);
+    document.getElementById('f-pos').addEventListener('change', applyFiltersAndSort);
+    document.getElementById('f-pa').addEventListener('change', applyFiltersAndSort);
+
+    document.getElementById('reset-filters').addEventListener('click', function () {
+      document.getElementById('f-year').value = '';
+      document.getElementById('f-team').value = '';
+      document.getElementById('f-pos').value = '';
+      document.getElementById('f-pa').value = '0';
+      applyFiltersAndSort();
+    });
+
+    document.querySelectorAll('#leaderboard th').forEach(function (th) {
+      th.addEventListener('click', function () {
+        var key = th.dataset.key;
+        if (sortKey === key) {
+          sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+        } else {
+          sortKey = key;
+          sortDir = 'desc';
+        }
+        updateSortHeaders();
+        applyFiltersAndSort();
+      });
+    });
+
+    updateSortHeaders();
+    applyFiltersAndSort();
+  }
+
+  fetch(DATA_URL)
+    .then(function (res) { return res.text(); })
+    .then(function (text) { init(parseCSV(text)); })
+    .catch(function (err) {
+      document.getElementById('rowcount').textContent = 'Could not load player data (' + err + ').';
+      console.error(err);
+    });
+})();
