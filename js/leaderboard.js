@@ -49,10 +49,18 @@
     return value;
   }
 
-  function porClass(value) {
-    if (value >= 60) return 'por-high';
-    if (value <= 40) return 'por-low';
-    return '';
+  function porStyle(value) {
+    if (value === undefined || value === null || isNaN(value)) return '';
+    var bg, color = '#1B2430';
+    if (value >= 90)      { bg = '#1B7A3D'; color = '#FAF7EF'; }
+    else if (value >= 80) { bg = '#4C9950'; color = '#FAF7EF'; }
+    else if (value >= 65) { bg = '#8FC17E'; }
+    else if (value >= 55) { bg = '#C7E2A4'; }
+    else if (value >= 45) { bg = '#F0D670'; }
+    else if (value >= 35) { bg = '#F0A79C'; }
+    else if (value >= 20) { bg = '#E0655A'; color = '#FAF7EF'; }
+    else                  { bg = '#B93A30'; color = '#FAF7EF'; }
+    return 'background-color:' + bg + '; color:' + color + ';';
   }
 
   function applyFiltersAndSort() {
@@ -95,8 +103,9 @@
     }
     var html = rows.map(function (r) {
       var cells = cols.map(function (c) {
-        var cls = c === 'Name' ? ' class="name"' : (c === 'PoR' ? ' class="' + porClass(r.PoR) + '"' : '');
-        return '<td' + cls + '>' + formatCell(c, r[c]) + '</td>';
+        if (c === 'Name') return '<td class="name">' + formatCell(c, r[c]) + '</td>';
+        if (c === 'PoR') return '<td style="' + porStyle(r.PoR) + '">' + formatCell(c, r[c]) + '</td>';
+        return '<td>' + formatCell(c, r[c]) + '</td>';
       }).join('');
       return '<tr>' + cells + '</tr>';
     }).join('');
