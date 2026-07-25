@@ -104,9 +104,10 @@
   }
 
   function updateSortHeaders() {
-    document.querySelectorAll('#leaderboard th').forEach(function (th) {
+    document.querySelectorAll('#leaderboard th[data-key]').forEach(function (th) {
       th.classList.toggle('sorted', th.dataset.key === sortKey);
       var arrow = th.querySelector('.arrow');
+      if (!arrow) return;
       if (th.dataset.key === sortKey) {
         arrow.innerHTML = sortDir === 'asc' ? '&uarr;' : '&darr;';
       } else {
@@ -117,7 +118,8 @@
 
   function init(rows) {
     allRows = rows;
-    populateFilter(document.getElementById('f-year'), uniqueSorted(rows, 'Year').sort().reverse());
+    var FULL_YEAR_RANGE = ['2026','2025','2024','2023','2022','2021'];
+    populateFilter(document.getElementById('f-year'), FULL_YEAR_RANGE);
     populateFilter(document.getElementById('f-team'), uniqueSorted(rows, 'Team'));
     populateFilter(document.getElementById('f-pos'), uniqueSorted(rows, 'Position'));
 
@@ -147,7 +149,7 @@
       applyFiltersAndSort();
     });
 
-    document.querySelectorAll('#leaderboard th').forEach(function (th) {
+    document.querySelectorAll('#leaderboard th[data-key]').forEach(function (th) {
       th.addEventListener('click', function () {
         var key = th.dataset.key;
         if (sortKey === key) {
