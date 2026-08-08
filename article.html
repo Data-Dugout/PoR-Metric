@@ -1,141 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Introducing PoR — The Article</title>
-<link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+PoR / Progression or Regression By The Data Dugout Menu
+Home
+The Article
+Methodology
+Results
+About
+The Article
 
-<header class="site">
-  <nav class="nav">
-    <a href="index.html" class="brandlink">
-      <span class="brand">PoR <span>/</span> Progression or Regression</span>
-      <span class="tagline">By The Data Dugout</span>
-    </a>
-    <button class="navtoggle" aria-label="Toggle navigation">Menu</button>
-    <ul class="navlinks">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="article.html" class="active">The Article</a></li>
-      <li><a href="methodology.html">Methodology</a></li>
-      <li><a href="results.html">Results</a></li>
-      <li><a href="leaderboard.html">Leaderboard</a></li>
-      <li><a href="about.html">About</a></li>
-    </ul>
-  </nav>
-</header>
+Introducing PoR: A Metric for Progression and Regression
+How much of a hitter's season is skill, and how much is luck? PoR tries to answer that with a single number.
 
-<main>
-  <section class="pagehero">
-    <div class="wrap" style="max-width:72ch;">
-      <p class="eyebrow">The Article</p>
-      <h1>Introducing PoR: A Metric for Progression and Regression</h1>
-      <p style="opacity:.75;">How much of a hitter's season is skill, and how much is luck? PoR tries to answer that with a single number.</p>
-    </div>
-  </section>
+Every season, a handful of hitters get talked about like they've made a leap that never actually happened. A .310 average, a career-high slugging percentage, a run of clutch hits in August — and by winter they're getting paid, or drafted, like a different player than the one who takes the field next spring. The reverse happens just as often: a hitter scorches the ball all year, runs into bad luck on balls in play, and gets written off.
 
-  <section>
-    <div class="wrap" style="max-width:72ch;">
+PoR — Progression or Regression — is a metric built to catch both of those hitters before the league catches up. It doesn't measure how good a player is. It measures how much of what happened to them was earned, and how much was noise.
 
-      <p>Every season, a handful of hitters get talked about like they've made a leap
-      that never actually happened. A .310 average, a career-high slugging
-      percentage, a run of clutch hits in August — and by winter they're getting
-      paid, or drafted, like a different player than the one who takes the field
-      next spring. The reverse happens just as often: a hitter scorches the ball all
-      year, runs into bad luck on balls in play, and gets written off.</p>
+The core idea
+Baseball Savant already tracks "expected" versions of most outcome stats — xBA, xSLG, xwOBA — built from exit velocity and launch angle rather than what actually landed for a hit. When a player's real numbers run well ahead of their expected numbers, they've been getting help from balls finding grass. When real numbers run behind expected, they've been getting robbed.
 
-      <p>PoR — <strong>Progression or Regression</strong> — is a metric built to catch
-      both of those hitters before the league catches up. It doesn't measure how good
-      a player is. It measures how much of what happened to them was earned, and how
-      much was noise.</p>
+PoR takes that gap for four different stats — batting average, slugging, weighted on-base average, and BABIP — scales each to a 0–100 range, and averages them. The result is a single score:
 
-      <h2>The core idea</h2>
-      <p>Baseball Savant already tracks "expected" versions of most outcome stats —
-      xBA, xSLG, xwOBA — built from exit velocity and launch angle rather than what
-      actually landed for a hit. When a player's real numbers run well ahead of their
-      expected numbers, they've been getting help from balls finding grass. When real
-      numbers run behind expected, they've been getting robbed.</p>
+High PoR (60–100): this player got unlucky. Skill outpaced results.
+Low PoR (0–40): this player got lucky. Results outpaced skill.
+The full formula and scaling method are on the methodology page — this article focuses on whether it actually works.
 
-      <p>PoR takes that gap for four different stats — batting average, slugging,
-      weighted on-base average, and BABIP — scales each to a 0–100 range, and
-      averages them. The result is a single score:</p>
+Does it actually predict anything?
+Across four seasons (2021–2024) and 1,423 qualified player-seasons, PoR score correlated with the following year's change in wRC+ at r = 0.47 — a real, moderate relationship, not a coin flip and not a certainty either.
 
-      <div class="callout">
-        <strong>High PoR (60–100):</strong> this player got unlucky. Skill outpaced results.<br>
-        <strong>Low PoR (0–40):</strong> this player got lucky. Results outpaced skill.
-      </div>
+The signal gets much stronger once you add two filters that have nothing to do with luck: a plate-appearance minimum, and a prior-year wRC+ threshold. A hitter needs playing time for regression to the mean to actually show up, and an already-elite hitter has less room to "progress" than a mediocre one does — a ceiling effect that shows up clearly in the data.
 
-      <p>The full formula and scaling method are on the <a href="methodology.html">methodology page</a> —
-      this article focuses on whether it actually works.</p>
+Filtered down to hitters who received at least 502 plate appearances the following season, and split by whether they were below- or above-average (wRC+) the year PoR was measured:
 
-      <h2>Does it actually predict anything?</h2>
-      <p>Across four seasons (2021&ndash;2024) and 1,423 qualified player-seasons, PoR
-      score correlated with the following year's change in wRC+ at r = 0.47 — a real,
-      moderate relationship, not a coin flip and not a certainty either.</p>
+High PoR, below-average hitters: improved 90.0% of the time (45 of 50)
+Low PoR, above-average hitters: declined 77.8% of the time (56 of 72)
+Tighten the wRC+ split further — below 90 instead of below 100, above 110 instead of above 100 — and the high-PoR accuracy climbs to 94.3%. See the full results page for every plate-appearance threshold, not just the headline number.
 
-      <p>The signal gets much stronger once you add two filters that have nothing to
-      do with luck: a plate-appearance minimum, and a prior-year wRC+ threshold. A
-      hitter needs playing time for regression to the mean to actually show up, and
-      an already-elite hitter has less room to "progress" than a mediocre one does —
-      a ceiling effect that shows up clearly in the data.</p>
+Why BABIP earns a spot in the formula
+The first version of PoR used three inputs — BA, SLG, wOBA — all measured against their Baseball Savant "expected" counterpart. BABIP doesn't have an expected version, but it doesn't need one: league-average BABIP sits at almost exactly .300 every year. A hitter running well above .300 has been lucky on balls in play; well below, unlucky. Adding it as a fourth input, scored the same way as the other three, improved regression detection by 6–8 percentage points at every plate-appearance threshold tested, without meaningfully hurting progression accuracy.
 
-      <p>Filtered down to hitters who received at least 502 plate appearances the
-      following season, and split by whether they were below- or above-average
-      (wRC+) the year PoR was measured:</p>
+What PoR is not
+PoR is not a projection system, and it's not trying to be one. It doesn't output a projected batting line, and it doesn't know anything about age, health, swing changes, or role changes. It answers one narrower question: relative to how this player has actually performed, how much of that was batted-ball luck? That narrower scope is what makes it useful — it's a lens to point at a projection or a scouting report, not a replacement for either.
 
-      <ul>
-        <li><strong>High PoR, below-average hitters:</strong> improved 90.0% of the time (45 of 50)</li>
-        <li><strong>Low PoR, above-average hitters:</strong> declined 77.8% of the time (56 of 72)</li>
-      </ul>
+Where this goes next
+The next step is testing PoR against established projection systems (Steamer, ZiPS) on the same player pool, to see whether it adds information those systems don't already have — particularly in the cases where PoR and a projection system disagree. That comparison, plus a running log of 2025 rookies flagged by PoR, will be added here as the work is finished.
 
-      <p>Tighten the wRC+ split further — below 90 instead of below 100, above 110
-      instead of above 100 — and the high-PoR accuracy climbs to 94.3%. See the
-      <a href="results.html">full results page</a> for every plate-appearance
-      threshold, not just the headline number.</p>
+Read the full methodology →
 
-      <h2>Why BABIP earns a spot in the formula</h2>
-      <p>The first version of PoR used three inputs — BA, SLG, wOBA — all measured
-      against their Baseball Savant "expected" counterpart. BABIP doesn't have an
-      expected version, but it doesn't need one: league-average BABIP sits at almost
-      exactly .300 every year. A hitter running well above .300 has been lucky on
-      balls in play; well below, unlucky. Adding it as a fourth input, scored the same
-      way as the other three, improved regression detection by 6&ndash;8 percentage
-      points at every plate-appearance threshold tested, without meaningfully hurting
-      progression accuracy.</p>
-
-      <h2>What PoR is not</h2>
-      <p>PoR is not a projection system, and it's not trying to be one. It doesn't
-      output a projected batting line, and it doesn't know anything about age, health,
-      swing changes, or role changes. It answers one narrower question: relative to
-      how this player has actually performed, how much of that was batted-ball luck?
-      That narrower scope is what makes it useful — it's a lens to point at a
-      projection or a scouting report, not a replacement for either.</p>
-
-      <h2>Where this goes next</h2>
-      <p>The next step is testing PoR against established projection systems
-      (Steamer, ZiPS) on the same player pool, to see whether it adds information
-      those systems don't already have — particularly in the cases where PoR and a
-      projection system disagree. That comparison, plus a running log of 2025
-      rookies flagged by PoR, will be added here as the work is finished.</p>
-
-      <p style="margin-top:40px;"><a href="methodology.html" class="btn">Read the full methodology &rarr;</a></p>
-
-    </div>
-  </section>
-</main>
-
-<footer class="site">
-  <div class="wrap">
-    <div class="fine">PoR &middot; built on public Baseball Savant &amp; FanGraphs data, 2021&ndash;2024</div>
-    <div style="display:flex; gap:20px;">
-      <a href="index.html">Home</a>
-      <a href="results.html">Results</a>
-      <a href="about.html">About</a>
-    </div>
-  </div>
-</footer>
-
-<script src="js/main.js"></script>
-</body>
-</html>
+PoR · built on public Baseball Savant & FanGraphs data, 2021–2024
+Home
+Results
+About
