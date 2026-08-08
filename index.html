@@ -100,6 +100,31 @@
   }
   .expl-body p{font-size:.92rem; opacity:.85; margin:0;}
   .expl-body p + p{margin-top:10px;}
+
+  /* dual high/low stat row inside the scorecard */
+  .dualstat{display:flex; gap:18px; margin-top:8px;}
+  .dualstat-item{flex:1;}
+  .dualstat-num{font-family:'Zilla Slab', serif; font-weight:700; font-size:2.1rem; line-height:1;}
+  .dualstat-num.improve{color:var(--turf-700);}
+  .dualstat-num.regress{color:var(--clay-500);}
+  .dualstat-cap{font-size:.82rem; opacity:.8; margin-top:6px; line-height:1.4;}
+  .dualstat-cap .mono{font-family:'IBM Plex Mono',monospace; font-size:.92em; opacity:.75;}
+
+  /* diverging bar chart: avg wRC+ change by PoR range */
+  .wrc-title{
+    font-family:'IBM Plex Mono',monospace; font-size:.72rem; text-transform:uppercase;
+    letter-spacing:.06em; color:var(--turf-900); opacity:.75; margin:0 0 10px;
+  }
+  .wrc-chart{display:flex; align-items:flex-start; gap:3px;}
+  .wrc-col{flex:1; display:flex; flex-direction:column; align-items:center; min-width:0;}
+  .wrc-pos{height:90px; width:100%; display:flex; align-items:flex-end; justify-content:center; border-bottom:2px solid var(--ink-900);}
+  .wrc-neg{height:130px; width:100%; display:flex; align-items:flex-start; justify-content:center;}
+  .wrc-pos .bar{width:78%; background:var(--turf-700); border-radius:2px 2px 0 0;}
+  .wrc-neg .bar{width:78%; background:var(--clay-500); border-radius:0 0 2px 2px;}
+  .wrc-lbl{
+    margin-top:6px; font-size:.56rem; font-family:'IBM Plex Mono',monospace;
+    opacity:.7; white-space:nowrap; letter-spacing:-.02em;
+  }
 </style>
 </head>
 <body>
@@ -158,14 +183,32 @@
 
       <div class="scorecard">
         <span class="tag">Validated 2021&ndash;2024</span>
-        <div class="stat-label" style="margin-top:6px;">High-PoR score players (above 70) improve&hellip;</div>
-        <div class="stat">79.5<sup>%</sup></div>
-        <div class="stat-label">of the time — 66 of 83 qualifying player-seasons.</div>
+
+        <div class="dualstat">
+          <div class="dualstat-item">
+            <div class="dualstat-num improve">79.5%</div>
+            <div class="dualstat-cap">of players who scored <strong>70 or higher</strong> improved the following year <span class="mono">(66 of 83)</span></div>
+          </div>
+          <div class="dualstat-item">
+            <div class="dualstat-num regress">93.7%</div>
+            <div class="dualstat-cap">of players who scored <strong>30 or below</strong> declined the following year <span class="mono">(59 of 63)</span></div>
+          </div>
+        </div>
+
         <hr>
-        <div class="ledger">
-          <div class="yr">90&ndash;100<b>100%</b></div>
-          <div class="yr">80&ndash;89<b>83%</b></div>
-          <div class="yr">70&ndash;79<b>78%</b></div>
+
+        <p class="wrc-title">Average wRC+ Change by PoR Score Range</p>
+        <div class="wrc-chart" role="img" aria-label="Diverging bar chart of average wRC+ change by PoR score range, from +39.7 at 90-80 down to -57.3 at 10-0">
+          <div class="wrc-col"><div class="wrc-pos"><div class="bar" style="height:84px;"></div></div><div class="wrc-neg"></div><div class="wrc-lbl">100-90</div></div>
+          <div class="wrc-col"><div class="wrc-pos"><div class="bar" style="height:90px;"></div></div><div class="wrc-neg"></div><div class="wrc-lbl">90-80</div></div>
+          <div class="wrc-col"><div class="wrc-pos"><div class="bar" style="height:51px;"></div></div><div class="wrc-neg"></div><div class="wrc-lbl">80-70</div></div>
+          <div class="wrc-col"><div class="wrc-pos"><div class="bar" style="height:16px;"></div></div><div class="wrc-neg"></div><div class="wrc-lbl">70-60</div></div>
+          <div class="wrc-col"><div class="wrc-pos"><div class="bar" style="height:2px;"></div></div><div class="wrc-neg"></div><div class="wrc-lbl">60-50</div></div>
+          <div class="wrc-col"><div class="wrc-pos"></div><div class="wrc-neg"><div class="bar" style="height:23px;"></div></div><div class="wrc-lbl">50-40</div></div>
+          <div class="wrc-col"><div class="wrc-pos"></div><div class="wrc-neg"><div class="bar" style="height:41px;"></div></div><div class="wrc-lbl">40-30</div></div>
+          <div class="wrc-col"><div class="wrc-pos"></div><div class="wrc-neg"><div class="bar" style="height:74px;"></div></div><div class="wrc-lbl">30-20</div></div>
+          <div class="wrc-col"><div class="wrc-pos"></div><div class="wrc-neg"><div class="bar" style="height:104px;"></div></div><div class="wrc-lbl">20-10</div></div>
+          <div class="wrc-col"><div class="wrc-pos"></div><div class="wrc-neg"><div class="bar" style="height:130px;"></div></div><div class="wrc-lbl">10-0</div></div>
         </div>
       </div>
     </div>
