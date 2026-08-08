@@ -83,6 +83,23 @@
   .intro-links{display:flex; gap:22px; flex-wrap:wrap; margin-top:18px;}
   .intro-links a{font-weight:600; text-decoration:none;}
   .intro-links a:hover{text-decoration:underline;}
+
+  .expl{margin-top:22px; max-width:56ch;}
+  .expl summary{
+    list-style:none; cursor:pointer; font-weight:600; color:var(--turf-900);
+    font-size:.95rem; display:flex; align-items:center; gap:8px; user-select:none;
+  }
+  .expl summary::-webkit-details-marker{display:none;}
+  .expl-arrow{
+    display:inline-block; font-size:.7em; color:var(--clay-500);
+    transition:transform .15s ease;
+  }
+  .expl[open] .expl-arrow{transform:rotate(-180deg);}
+  .expl-body{
+    margin-top:12px; padding-left:22px; border-left:2px solid var(--line);
+  }
+  .expl-body p{font-size:.92rem; opacity:.85; margin:0;}
+  .expl-body p + p{margin-top:10px;}
 </style>
 </head>
 <body>
@@ -110,27 +127,45 @@
     <div class="wrap-lb intro-grid">
       <div>
         <p style="font-size:1.15rem; max-width:52ch; opacity:.85; margin:0;">
-          PoR (Progression or Regression) measures how much of a hitter's season was
-          skill versus batted-ball luck — and uses that gap to flag who's likely to
-          swing the other way next year.
+          <strong style="color:var(--turf-900);">PoR (Progression or Regression)</strong>
+          predicts and measures a player's offensive changes from year to year. The
+          metric is built on a combination of expected stats that have been back
+          tested for five years.
         </p>
         <div class="intro-links">
-          <a href="methodology.html">Read more about Methodology &rarr;</a>
-          <a href="results.html">Read more about historical results &rarr;</a>
+          <a href="methodology.html">Read about Methodology of PoR &rarr;</a>
+          <a href="results.html">Read about Historical Results &rarr;</a>
         </div>
+
+        <details class="expl">
+          <summary><span class="expl-arrow">&#9660;</span> Expected Stats Explanation</summary>
+          <div class="expl-body">
+            <p>Expected stats are a Statcast metric used by MLB to strip defense,
+            ballpark, and luck out of the equation. If a hitter squares up a ball and
+            an outfielder makes a leaping catch at the wall, the box score shows an
+            out — a .000 result on that swing. But based on that ball's exit velocity,
+            launch angle, and barrel classification, batted balls with that exact
+            profile land for a hit about 70% of the time. That 70% is the player's
+            <em>expected</em> outcome on that swing, independent of what actually
+            happened to it.</p>
+            <p>Over a full season — and especially across many seasons — actual
+            results tend to drift back toward those expected numbers, the same way
+            any sample converges toward its underlying probability the longer you
+            run it.</p>
+          </div>
+        </details>
       </div>
 
       <div class="scorecard">
         <span class="tag">Validated 2021&ndash;2024</span>
-        <div class="stat-label" style="margin-top:6px;">High-PoR hitters (below-average, 502+ PA the following year) improved&hellip;</div>
-        <div class="stat">90.0<sup>%</sup></div>
-        <div class="stat-label">of the time — 45 of 50 qualifying player-seasons.</div>
+        <div class="stat-label" style="margin-top:6px;">High-PoR score players (above 70) improve&hellip;</div>
+        <div class="stat">79.5<sup>%</sup></div>
+        <div class="stat-label">of the time — 66 of 83 qualifying player-seasons.</div>
         <hr>
         <div class="ledger">
-          <div class="yr">2021<b>77.8%</b></div>
-          <div class="yr">2022<b>76.5%</b></div>
-          <div class="yr">2023<b>100%</b></div>
-          <div class="yr">2024<b>95.0%</b></div>
+          <div class="yr">90&ndash;100<b>100%</b></div>
+          <div class="yr">80&ndash;89<b>83%</b></div>
+          <div class="yr">70&ndash;79<b>78%</b></div>
         </div>
       </div>
     </div>
