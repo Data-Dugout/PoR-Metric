@@ -1,128 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Methodology — PoR</title>
-<link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+PoR / Progression or Regression By The Data Dugout Menu
+Home
+The Article
+Methodology
+Results
+About
+Methodology
 
-<header class="site">
-  <nav class="nav">
-    <a href="index.html" class="brandlink">
-      <span class="brand">PoR <span>/</span> Progression or Regression</span>
-      <span class="tagline">By The Data Dugout</span>
-    </a>
-    <button class="navtoggle" aria-label="Toggle navigation">Menu</button>
-    <ul class="navlinks">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="article.html">The Article</a></li>
-      <li><a href="methodology.html" class="active">Methodology</a></li>
-      <li><a href="results.html">Results</a></li>
-      <li><a href="leaderboard.html">Leaderboard</a></li>
-      <li><a href="about.html">About</a></li>
-    </ul>
-  </nav>
-</header>
+How the score is built
+The formula, the scaling, and the data behind every PoR score.
 
-<main>
-  <section class="pagehero">
-    <div class="wrap" style="max-width:72ch;">
-      <p class="eyebrow">Methodology</p>
-      <h1>How the score is built</h1>
-      <p style="opacity:.75;">The formula, the scaling, and the data behind every PoR score.</p>
-    </div>
-  </section>
+The formula
+PoR is the average of four component scores, each scaled to a 0–100 range from that season's actual extremes:
 
-  <section>
-    <div class="wrap" style="max-width:72ch;">
+PoR = (BA100 + SLG100 + OBA100 + BABIP100) / 4
+Each component compares a hitter's actual outcome to their expected outcome (from Baseball Savant's batted-ball model), then scales that gap against the full range seen across all qualified hitters that season:
 
-      <h2>The formula</h2>
-      <p>PoR is the average of four component scores, each scaled to a 0–100 range
-      from that season's actual extremes:</p>
+BA100   = ( MAXBA − (BA − xBA) ) / RANGEBA × 100
+SLG100  = ( MAXSLG − (SLG − xSLG) ) / RANGESLG × 100
+OBA100  = ( MAXwOBA − (wOBA − xwOBA) ) / RANGEwOBA × 100
+BABIP100 = ( MAXBABIP − BABIP ) / RANGEBABIP × 100
+BABIP has no "expected" counterpart, so it's treated differently: league-average BABIP sits close to .300 every season, so a hitter's raw BABIP is scaled directly against that year's min and max — no difference calculation needed.
 
-      <div class="formula">
-PoR = <span class="k">(BA100 + SLG100 + OBA100 + BABIP100)</span> / 4
-      </div>
+A high score means the player under-produced relative to their skill (unlucky, likely to progress). A low score means they over-produced (lucky, likely to regress).
+Why scale year-by-year
+Two scaling approaches were tested: a single fixed scale built from five years of league-wide data, and a scale rebuilt from each season's own min/max. Year-by-year scaling produced meaningfully better accuracy and larger usable sample sizes, at the cost of scores not being directly comparable across seasons (a PoR of 80 in 2022 isn't quite the same as an 80 in 2024). That trade-off was worth it — the metric is currently intended for within-season use, not for comparing a player's score across years.
 
-      <p style="margin-top:20px;">Each component compares a hitter's actual outcome to their expected outcome
-      (from Baseball Savant's batted-ball model), then scales that gap against the
-      full range seen across all qualified hitters that season:</p>
+Year-specific scaling ranges used
+Year	BA−xBA range	SLG−xSLG range	wOBA−xwOBA range	BABIP range
+2024	0.188	0.297	0.179	0.150–0.403
+2023	0.148	0.366	0.182	0.194–0.440
+2022	0.150	0.337	0.172	0.148–0.409
+2021	0.146	0.279	0.157	0.170–0.456
+Why wRC+ is a filter, not an input
+An early version tried folding a hitter's prior-year wRC+ directly into the score — boosting PoR for below-average hitters and penalizing it for above-average ones. It made intuitive sense, but it made the metric worse: correlation with next-year wRC+ change dropped from 0.47 to 0.45. Elite hitters near their performance ceiling improve less even when unlucky, simply because they have less room to grow — so wRC+ works better as a filter applied after the score, not a weight baked into it.
 
-      <div class="formula">
-BA100&nbsp;&nbsp;&nbsp;= ( MAX<sub>BA</sub> &minus; (BA &minus; xBA) ) / RANGE<sub>BA</sub> &times; 100<br>
-SLG100&nbsp;&nbsp;= ( MAX<sub>SLG</sub> &minus; (SLG &minus; xSLG) ) / RANGE<sub>SLG</sub> &times; 100<br>
-OBA100&nbsp;&nbsp;= ( MAX<sub>wOBA</sub> &minus; (wOBA &minus; xwOBA) ) / RANGE<sub>wOBA</sub> &times; 100<br>
-BABIP100 = ( MAX<sub>BABIP</sub> &minus; BABIP ) / RANGE<sub>BABIP</sub> &times; 100
-      </div>
+Data sources
+All batted-ball and expected-stat data comes from Baseball Savant's expected statistics leaderboard; all wRC+ values come from FanGraphs. Analysis covers qualified hitters (min. plate-appearance thresholds noted per test) across the 2021 through 2024 seasons, with each season's PoR score checked against that player's following-season performance.
 
-      <p style="margin-top:20px;">BABIP has no "expected" counterpart, so it's treated
-      differently: league-average BABIP sits close to .300 every season, so a
-      hitter's raw BABIP is scaled directly against that year's min and max — no
-      difference calculation needed.</p>
+See the full results →
 
-      <div class="callout">
-        A high score means the player under-produced relative to their skill (unlucky,
-        likely to progress). A low score means they over-produced (lucky, likely to
-        regress).
-      </div>
-
-      <h2>Why scale year-by-year</h2>
-      <p>Two scaling approaches were tested: a single fixed scale built from five
-      years of league-wide data, and a scale rebuilt from each season's own min/max.
-      Year-by-year scaling produced meaningfully better accuracy and larger usable
-      sample sizes, at the cost of scores not being directly comparable across
-      seasons (a PoR of 80 in 2022 isn't quite the same as an 80 in 2024). That
-      trade-off was worth it — the metric is currently intended for within-season
-      use, not for comparing a player's score across years.</p>
-
-      <table>
-        <caption>Year-specific scaling ranges used</caption>
-        <thead>
-          <tr><th>Year</th><th>BA&minus;xBA range</th><th>SLG&minus;xSLG range</th><th>wOBA&minus;xwOBA range</th><th>BABIP range</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>2024</td><td>0.188</td><td>0.297</td><td>0.179</td><td>0.150&ndash;0.403</td></tr>
-          <tr><td>2023</td><td>0.148</td><td>0.366</td><td>0.182</td><td>0.194&ndash;0.440</td></tr>
-          <tr><td>2022</td><td>0.150</td><td>0.337</td><td>0.172</td><td>0.148&ndash;0.409</td></tr>
-          <tr><td>2021</td><td>0.146</td><td>0.279</td><td>0.157</td><td>0.170&ndash;0.456</td></tr>
-        </tbody>
-      </table>
-
-      <h2>Why wRC+ is a filter, not an input</h2>
-      <p>An early version tried folding a hitter's prior-year wRC+ directly into the
-      score — boosting PoR for below-average hitters and penalizing it for
-      above-average ones. It made intuitive sense, but it made the metric worse:
-      correlation with next-year wRC+ change dropped from 0.47 to 0.45. Elite hitters
-      near their performance ceiling improve less even when unlucky, simply because
-      they have less room to grow — so wRC+ works better as a filter applied after
-      the score, not a weight baked into it.</p>
-
-      <h2>Data sources</h2>
-      <p>All batted-ball and expected-stat data comes from Baseball Savant's expected
-      statistics leaderboard; all wRC+ values come from FanGraphs. Analysis covers
-      qualified hitters (min. plate-appearance thresholds noted per test) across the
-      2021 through 2024 seasons, with each season's PoR score checked against that
-      player's following-season performance.</p>
-
-      <p style="margin-top:40px;"><a href="results.html" class="btn">See the full results &rarr;</a></p>
-
-    </div>
-  </section>
-</main>
-
-<footer class="site">
-  <div class="wrap">
-    <div class="fine">PoR &middot; built on public Baseball Savant &amp; FanGraphs data, 2021&ndash;2024</div>
-    <div style="display:flex; gap:20px;">
-      <a href="index.html">Home</a>
-      <a href="article.html">Article</a>
-      <a href="about.html">About</a>
-    </div>
-  </div>
-</footer>
-
-<script src="js/main.js"></script>
-</body>
-</html>
+PoR · built on public Baseball Savant & FanGraphs data, 2021–2024
+Home
+Article
+About
