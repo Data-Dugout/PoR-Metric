@@ -142,14 +142,13 @@
       document.getElementById('leaderboard').classList.toggle('por-only', poronly.checked);
     });
 
-    // default Year to the most recent season present in the data
-    var years = uniqueSorted(rows, 'Year').map(Number).filter(function (n) { return !isNaN(n); });
-    var mostRecentYear = years.length ? Math.max.apply(null, years) : '';
+    // default Year to the current season (2026), regardless of what years have data yet
+    var DEFAULT_YEAR = '2026';
     var yearSelect = document.getElementById('f-year');
-    if (mostRecentYear !== '') yearSelect.value = String(mostRecentYear);
+    yearSelect.value = DEFAULT_YEAR;
 
     document.getElementById('reset-filters').addEventListener('click', function () {
-      document.getElementById('f-year').value = mostRecentYear !== '' ? String(mostRecentYear) : '';
+      document.getElementById('f-year').value = DEFAULT_YEAR;
       document.getElementById('f-team').value = '';
       document.getElementById('f-pos').value = '';
       document.getElementById('f-pa').value = '0';
