@@ -4,6 +4,7 @@
   var DECIMAL_COLS = ['BA','xBA','BA_Diff','SLG','xSLG','SLG_Diff','wOBA','xwOBA','OBA_Diff','BABIP'];
 
   var allRows = [];
+  var lastFilteredRows = [];
   var sortKey = 'PoR';
   var sortDir = 'desc';
 
@@ -63,6 +64,39 @@
     return 'background-color:' + bg + '; color:' + color + ';';
   }
 
+  function exportToCSV() {
+    var cols = ['Name','Team','PA','PoR','BA','xBA','BA_Diff','SLG','xSLG','SLG_Diff','wOBA','xwOBA','OBA_Diff','BABIP'];
+    var headerLabels = ['Name','Team','PA','PoR','BA','xBA','BA Diff','SLG','xSLG','SLG Diff','wOBA','xwOBA','OBA Diff','BABIP'];
+
+    function csvEscape(val) {
+      var s = (val === undefined || val === null) ? '' : String(val);
+      if (s.indexOf(',') !== -1 || s.indexOf('"') !== -1 || s.indexOf('\n') !== -1) {
+        s = '"' + s.replace(/"/g, '""') + '"';
+      }
+      return s;
+    }
+
+    var rows = lastFilteredRows.map(function (r) {
+      return cols.map(function (c) {
+        var v = r[c];
+        if (typeof v === 'number' && isNaN(v)) v = '';
+        return csvEscape(v);
+      }).join(',');
+    });
+
+    var csv = headerLabels.map(csvEscape).join(',') + '\r\n' + rows.join('\r\n');
+    var blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    var stamp = new Date().toISOString().slice(0, 10);
+    a.href = url;
+    a.download = 'por-leaderboard-' + stamp + '.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
   function applyFiltersAndSort() {
     var year = document.getElementById('f-year').value;
     var team = document.getElementById('f-team').value;
@@ -88,6 +122,7 @@
       return sortDir === 'asc' ? cmp : -cmp;
     });
 
+    lastFilteredRows = filtered;
     renderRows(filtered);
     document.getElementById('rowcount').textContent =
       filtered.length + (filtered.length === 1 ? ' player shown' : ' players shown') +
@@ -170,6 +205,8 @@
         applyFiltersAndSort();
       });
     });
+
+    document.getElementById('export-csv').addEventListener('click', exportToCSV);
 
     updateSortHeaders();
     applyFiltersAndSort();
