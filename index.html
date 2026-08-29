@@ -31,6 +31,18 @@
   }
   .filterbar .export:hover{background:var(--turf-900);}
   .filterbar .export svg{width:14px; height:14px;}
+
+  .searchbar{position:relative; margin-bottom:20px;}
+  .searchbar input{
+    width:100%; padding:11px 14px 11px 40px; font-size:.95rem;
+    font-family:'Public Sans',sans-serif; border:1px solid var(--ink-900);
+    border-radius:var(--radius); background:#fff; color:var(--ink-900); box-sizing:border-box;
+  }
+  .searchbar input:focus{outline:2px solid var(--amber-400); outline-offset:1px;}
+  .searchbar svg{
+    position:absolute; left:13px; top:50%; transform:translateY(-50%);
+    width:16px; height:16px; color:var(--turf-900); opacity:.55; pointer-events:none;
+  }
   #leaderboard th{cursor:pointer; white-space:nowrap; user-select:none;}
   #leaderboard th .arrow{opacity:.4; font-size:.75em; margin-left:3px;}
   #leaderboard th.sorted .arrow{opacity:1; color:var(--clay-500);}
@@ -267,6 +279,11 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Export to Excel
         </button>
+      </div>
+
+      <div class="searchbar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="f-search" placeholder="Search player name&hellip;" autocomplete="off">
       </div>
 
       <p class="rowcount" id="rowcount">Loading player data&hellip;</p>
