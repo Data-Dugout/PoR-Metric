@@ -5,6 +5,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Methodology — PoR</title>
 <link rel="stylesheet" href="css/style.css">
+<style>
+  .math-formula{
+    display:flex; flex-wrap:wrap; align-items:center; justify-content:center;
+    gap:10px; font-family:'Zilla Slab', serif; font-style:italic; font-size:1.15rem;
+    padding:32px 24px;
+  }
+  .mf-term{font-weight:600; font-style:normal;}
+  .mf-bracket{font-size:2.6em; font-weight:400; font-style:normal; line-height:1; align-self:center;}
+  .mf-plus{font-style:normal; font-size:1.1em; align-self:center;}
+  .mf-frac{
+    display:inline-flex; flex-direction:column; align-items:center; text-align:center;
+    vertical-align:middle; margin:0 2px;
+  }
+  .mf-frac .mf-num{
+    padding:0 8px 5px; border-bottom:1.5px solid var(--cream-100); line-height:1.3;
+    white-space:nowrap;
+  }
+  .mf-frac .mf-den{padding:5px 8px 0; white-space:nowrap;}
+  .mf-frac sub{font-size:.68em;}
+  .mf-quarter .mf-num, .mf-quarter .mf-den{padding:0 6px; white-space:nowrap;}
+  .mf-quarter .mf-num{border-bottom:1.5px solid var(--cream-100); padding-bottom:3px;}
+  .mf-quarter .mf-den{padding-top:3px;}
+  @media (max-width:640px){
+    .math-formula{font-size:.78rem; gap:6px; padding:24px 12px;}
+    .mf-bracket{font-size:2.1em;}
+  }
+</style>
 </head>
 <body>
 
@@ -38,22 +65,34 @@
     <div class="wrap" style="max-width:72ch;">
 
       <h2>The formula</h2>
-      <p>PoR is the average of four component scores, each scaled to a 0–100 range
-      from that season's actual extremes:</p>
+      <p>PoR is the average of four component scores, each comparing a hitter's
+      actual outcome to their expected outcome (from Baseball Savant's batted-ball
+      model), scaled against that season's full range of qualified hitters:</p>
 
-      <div class="formula">
-PoR = <span class="k">(BA100 + SLG100 + OBA100 + BABIP100)</span> / 4
-      </div>
-
-      <p style="margin-top:20px;">Each component compares a hitter's actual outcome to their expected outcome
-      (from Baseball Savant's batted-ball model), then scales that gap against the
-      full range seen across all qualified hitters that season:</p>
-
-      <div class="formula">
-BA100&nbsp;&nbsp;&nbsp;= ( MAX<sub>BA</sub> &minus; (BA &minus; xBA) ) / RANGE<sub>BA</sub> &times; 100<br>
-SLG100&nbsp;&nbsp;= ( MAX<sub>SLG</sub> &minus; (SLG &minus; xSLG) ) / RANGE<sub>SLG</sub> &times; 100<br>
-OBA100&nbsp;&nbsp;= ( MAX<sub>wOBA</sub> &minus; (wOBA &minus; xwOBA) ) / RANGE<sub>wOBA</sub> &times; 100<br>
-BABIP100 = ( MAX<sub>BABIP</sub> &minus; BABIP ) / RANGE<sub>BABIP</sub> &times; 100
+      <div class="formula math-formula">
+        <span class="mf-term">PoR&nbsp;=</span>
+        <span class="mf-frac mf-quarter"><span class="mf-num">1</span><span class="mf-den">4</span></span>
+        <span class="mf-bracket mf-open">&#91;</span>
+        <span class="mf-frac">
+          <span class="mf-num">MAX<sub>BA</sub> &minus; (BA &minus; xBA)</span>
+          <span class="mf-den">RANGE<sub>BA</sub></span>
+        </span>
+        <span class="mf-plus">+</span>
+        <span class="mf-frac">
+          <span class="mf-num">MAX<sub>SLG</sub> &minus; (SLG &minus; xSLG)</span>
+          <span class="mf-den">RANGE<sub>SLG</sub></span>
+        </span>
+        <span class="mf-plus">+</span>
+        <span class="mf-frac">
+          <span class="mf-num">MAX<sub>wOBA</sub> &minus; (wOBA &minus; xwOBA)</span>
+          <span class="mf-den">RANGE<sub>wOBA</sub></span>
+        </span>
+        <span class="mf-plus">+</span>
+        <span class="mf-frac">
+          <span class="mf-num">MAX<sub>BABIP</sub> &minus; BABIP</span>
+          <span class="mf-den">RANGE<sub>BABIP</sub></span>
+        </span>
+        <span class="mf-bracket mf-close">&#93;</span>
       </div>
 
       <p style="margin-top:20px;">BABIP has no "expected" counterpart, so it's treated
