@@ -106,14 +106,39 @@
         regress).
       </div>
 
-      <h2>Why scale year-by-year</h2>
-      <p>Two scaling approaches were tested: a single fixed scale built from five
-      years of league-wide data, and a scale rebuilt from each season's own min/max.
-      Year-by-year scaling produced meaningfully better accuracy and larger usable
-      sample sizes, at the cost of scores not being directly comparable across
-      seasons (a PoR of 80 in 2022 isn't quite the same as an 80 in 2024). That
-      trade-off was worth it — the metric is currently intended for within-season
-      use, not for comparing a player's score across years.</p>
+      <h2>What each part of the formula means</h2>
+      <p>If you've never seen a formula like this before, here's what each piece
+      is actually doing, using BA as the example (SLG, wOBA, and BABIP work the
+      same way):</p>
+
+      <ul style="padding-left:22px; margin:0 0 20px;">
+        <li style="margin-bottom:12px;">
+          <strong>BA &minus; xBA</strong> — the gap between what a hitter actually
+          batted and what their contact quality says they <em>should have</em>
+          batted. A positive number means they got unlucky (hit worse than their
+          contact deserved); a negative number means they got lucky (hit better
+          than their contact deserved).
+        </li>
+        <li style="margin-bottom:12px;">
+          <strong>MAX<sub>BA</sub></strong> — the single biggest BA&minus;xBA gap
+          recorded by any qualified hitter that season. In other words, however
+          unlucky the unluckiest hitter in baseball was that year.
+        </li>
+        <li style="margin-bottom:12px;">
+          <strong>RANGE<sub>BA</sub></strong> — the distance between that
+          unluckiest hitter and the luckiest hitter that season (MAX minus MIN).
+          It's the full spread of "luck" that actually happened across the league
+          that year.
+        </li>
+      </ul>
+
+      <p>Putting it together: subtracting a hitter's own gap from that season's
+      MAX, then dividing by the RANGE, turns their raw luck number into a clean
+      0&ndash;100 scale — the unluckiest hitter in baseball lands near 100, the
+      luckiest lands near 0, and everyone else falls somewhere in between.
+      Because MAX and RANGE are different every season (some years produce more
+      extreme outliers than others), they have to be recalculated each year — here's
+      what those values have actually looked like across the seasons tested so far:</p>
 
       <table>
         <caption>Year-specific scaling ranges used</caption>
