@@ -102,12 +102,14 @@
     var team = document.getElementById('f-team').value;
     var pos = document.getElementById('f-pos').value;
     var minPA = parseInt(document.getElementById('f-pa').value, 10) || 0;
+    var search = document.getElementById('f-search').value.trim().toLowerCase();
 
     var filtered = allRows.filter(function (r) {
       if (year && String(r.Year) !== String(year)) return false;
       if (team && r.Team !== team) return false;
       if (pos && r.Position !== pos) return false;
       if ((r.PA || 0) < minPA) return false;
+      if (search && (!r.Name || r.Name.toLowerCase().indexOf(search) === -1)) return false;
       return true;
     });
 
@@ -171,6 +173,7 @@
     document.getElementById('f-team').addEventListener('change', applyFiltersAndSort);
     document.getElementById('f-pos').addEventListener('change', applyFiltersAndSort);
     document.getElementById('f-pa').addEventListener('change', applyFiltersAndSort);
+    document.getElementById('f-search').addEventListener('input', applyFiltersAndSort);
 
     var poronly = document.getElementById('f-poronly');
     poronly.addEventListener('change', function () {
@@ -187,6 +190,7 @@
       document.getElementById('f-team').value = '';
       document.getElementById('f-pos').value = '';
       document.getElementById('f-pa').value = '0';
+      document.getElementById('f-search').value = '';
       poronly.checked = false;
       document.getElementById('leaderboard').classList.remove('por-only');
       applyFiltersAndSort();
