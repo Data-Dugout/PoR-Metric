@@ -24,6 +24,13 @@
     padding:8px 14px; border-radius:var(--radius); font-size:.85rem; cursor:pointer; height:fit-content;
   }
   .filterbar .reset:hover{background:var(--turf-900); color:var(--cream-100);}
+  .filterbar .export{
+    margin-left:auto; background:var(--turf-700); color:var(--cream-050);
+    border:none; padding:8px 16px; border-radius:var(--radius); font-size:.85rem;
+    font-weight:600; cursor:pointer; height:fit-content; display:flex; align-items:center; gap:7px;
+  }
+  .filterbar .export:hover{background:var(--turf-900);}
+  .filterbar .export svg{width:14px; height:14px;}
   #leaderboard th{cursor:pointer; white-space:nowrap; user-select:none;}
   #leaderboard th .arrow{opacity:.4; font-size:.75em; margin-left:3px;}
   #leaderboard th.sorted .arrow{opacity:1; color:var(--clay-500);}
@@ -256,6 +263,10 @@
           </label>
         </div>
         <button class="reset" id="reset-filters">Reset filters</button>
+        <button class="export" id="export-csv">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Export to Excel
+        </button>
       </div>
 
       <p class="rowcount" id="rowcount">Loading player data&hellip;</p>
