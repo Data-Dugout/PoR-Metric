@@ -95,11 +95,6 @@
         <span class="mf-bracket mf-close">&#93;</span>
       </div>
 
-      <p style="margin-top:20px;">BABIP has no "expected" counterpart, so it's treated
-      differently: league-average BABIP sits close to .300 every season, so a
-      hitter's raw BABIP is scaled directly against that year's min and max — no
-      difference calculation needed.</p>
-
       <div class="callout">
         A high score means the player under-produced relative to their skill (unlucky,
         likely to progress). A low score means they over-produced (lucky, likely to
@@ -108,27 +103,38 @@
 
       <h2>What each part of the formula means</h2>
       <p>If you've never seen a formula like this before, here's what each piece
-      is actually doing, using BA as the example (SLG, wOBA, and BABIP work the
+      is actually doing, using BA as the example (SLG and wOBA work the
       same way):</p>
 
       <ul style="padding-left:22px; margin:0 0 20px;">
         <li style="margin-bottom:12px;">
-          <strong>BA &minus; xBA</strong> — the gap between what a hitter actually
-          batted and what their contact quality says they <em>should have</em>
-          batted. A positive number means they got unlucky (hit worse than their
-          contact deserved); a negative number means they got lucky (hit better
-          than their contact deserved).
+          <strong>BA &minus; xBA (Batting Average minus Expected Batting Average)</strong>
+          — the gap between what a hitter actually batted and what their contact
+          quality says they <em>should have</em> batted. A <strong>positive</strong>
+          number means they hit better than their contact deserved — they got
+          <strong>lucky</strong>. A <strong>negative</strong> number means they hit
+          worse than their contact deserved — they got <strong>unlucky</strong>.
+          <br><br>
+          <em>Example: a hitter batting .300 with an xBA of .250 has a difference
+          of +.050 — a lucky season, since the actual result outran what the
+          quality of contact predicted.</em>
         </li>
         <li style="margin-bottom:12px;">
-          <strong>MAX<sub>BA</sub></strong> — the single biggest BA&minus;xBA gap
-          recorded by any qualified hitter that season. In other words, however
-          unlucky the unluckiest hitter in baseball was that year.
+          <strong>MAX<sub>BA</sub></strong> — the single biggest (most positive)
+          BA&minus;xBA gap recorded by any qualified hitter that season. In other
+          words, however lucky the luckiest hitter in baseball was that year.
         </li>
         <li style="margin-bottom:12px;">
           <strong>RANGE<sub>BA</sub></strong> — the distance between that
           unluckiest hitter and the luckiest hitter that season (MAX minus MIN).
           It's the full spread of "luck" that actually happened across the league
           that year.
+        </li>
+        <li style="margin-bottom:12px;">
+          <strong>BABIP (Batting Average on Balls in Play)</strong> — has no
+          "expected" counterpart, so it's treated differently: league-average
+          BABIP sits close to .300 every season, so a hitter's raw BABIP is
+          scaled directly against that year's min and max.
         </li>
       </ul>
 
