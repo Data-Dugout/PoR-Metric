@@ -65,9 +65,9 @@
     <div class="wrap" style="max-width:72ch;">
 
       <h2>The formula</h2>
-      <p>PoR is the average of four component scores, each comparing a hitter's
-      actual outcome to their expected outcome (from Baseball Savant's batted-ball
-      model), scaled against that season's full range of qualified hitters:</p>
+      <p>PoR is the average of four offensive metrics, built with a backbone on
+      expected stats. Each comparing a hitter's actual outcome to their expected
+      outcome, scaled against that season's full range of hitters.</p>
 
       <div class="formula math-formula">
         <span class="mf-term">PoR&nbsp;=</span>
@@ -94,6 +94,9 @@
         </span>
         <span class="mf-bracket mf-close">&#93;</span>
       </div>
+      <p style="text-align:center; font-size:.8rem; opacity:.7; margin-top:-8px;">
+        * All players with 100+ plate appearances that season are included.
+      </p>
 
       <div class="callout">
         A high score means the player under-produced relative to their skill (unlucky,
@@ -107,6 +110,15 @@
       same way):</p>
 
       <ul style="padding-left:22px; margin:0 0 20px;">
+        <li style="margin-bottom:12px;">
+          <strong>xBA (Expected Batting Average)</strong> — a Statcast metric
+          that measures the likelihood a batted ball becomes a hit, based on its
+          exit velocity, launch angle, and the hitter's sprint speed. For example,
+          if a player crushes a ball 110 mph off the bat into the gap, but a
+          center fielder makes a diving catch — the actual batting average on
+          that play is .000, but the expected average could be .650, since that
+          exact batted ball results in a hit about 65% of the time.
+        </li>
         <li style="margin-bottom:12px;">
           <strong>BA &minus; xBA (Batting Average minus Expected Batting Average)</strong>
           — the gap between what a hitter actually batted and what their contact
@@ -158,15 +170,6 @@
           <tr><td>2021</td><td>0.146</td><td>0.279</td><td>0.157</td><td>0.170&ndash;0.456</td></tr>
         </tbody>
       </table>
-
-      <h2>Why wRC+ is a filter, not an input</h2>
-      <p>An early version tried folding a hitter's prior-year wRC+ directly into the
-      score — boosting PoR for below-average hitters and penalizing it for
-      above-average ones. It made intuitive sense, but it made the metric worse:
-      correlation with next-year wRC+ change dropped from 0.47 to 0.45. Elite hitters
-      near their performance ceiling improve less even when unlucky, simply because
-      they have less room to grow — so wRC+ works better as a filter applied after
-      the score, not a weight baked into it.</p>
 
       <h2>Data sources</h2>
       <p>All batted-ball and expected-stat data comes from Baseball Savant's expected
