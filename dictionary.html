@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dictionary of Terms — PoR</title>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/android-chrome-192x192.png">
+<link rel="shortcut icon" href="assets/favicon.ico">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site">
+  <nav class="nav">
+    <a href="index.html" class="brandlink">
+      <span class="brand">PoR <span>/</span> Progression or Regression</span>
+      <span class="tagline">By The Data Dugout</span>
+    </a>
+    <button class="navtoggle" aria-label="Toggle navigation">Menu</button>
+    <ul class="navlinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="methodology.html">Formula</a></li>
+      <li><a href="results.html">Testing Results</a></li>
+      <li><a href="article.html">Article</a></li>
+      <li><a href="case-studies.html">Case Studies</a></li>
+      <li><a href="dictionary.html" class="active">Dictionary</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <section class="pagehero">
+    <div class="wrap" style="max-width:72ch;">
+      <p class="eyebrow">Dictionary of Terms</p>
+      <h1>Plain-language glossary</h1>
+      <p style="opacity:.75;">Every stat and abbreviation used across this site, explained
+      in plain English — no prior sabermetrics knowledge required.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap" style="max-width:72ch;">
+
+      <dl>
+
+        <div class="term">
+          <dt>PoR <span class="abbr">Progression or Regression</span></dt>
+          <dd>A 0&ndash;100 score that estimates how much of a hitter's season was
+          driven by skill versus luck, and how likely they are to trend up or down
+          the following year. 100 is top-tier progression (very unlucky, due to
+          improve), 50 is roughly neutral, 0 is due for serious regression (very
+          lucky, due to decline).</dd>
+        </div>
+
+        <div class="term">
+          <dt>Expected Stats</dt>
+          <dd>A family of Statcast metrics that estimate what a hitter's numbers
+          "should" be based on the quality of contact they made &mdash; exit velocity,
+          launch angle, and sprint speed &mdash; rather than what actually happened once
+          defense, ballpark dimensions, and shifts got involved. A 110 mph line drive
+          that gets robbed by a diving catch is a .000 result, but its expected
+          batting average might be .650, since that exact contact profile is a hit
+          about 65% of the time.</dd>
+        </div>
+
+        <div class="term">
+          <dt>xBA <span class="abbr">Expected Batting Average</span></dt>
+          <dd>The batting average a hitter's contact quality says they should have,
+          based on the historical outcomes of similar batted balls.</dd>
+        </div>
+
+        <div class="term">
+          <dt>xSLG <span class="abbr">Expected Slugging Percentage</span></dt>
+          <dd>Same idea as xBA, but for slugging &mdash; it also credits how hard and
+          far the ball was hit, not just whether it fell in for a hit.</dd>
+        </div>
+
+        <div class="term">
+          <dt>xwOBA <span class="abbr">Expected Weighted On-Base Average</span></dt>
+          <dd>The expected version of wOBA (see below) &mdash; a single number estimating
+          overall offensive contribution based on contact quality alone.</dd>
+        </div>
+
+        <div class="term">
+          <dt>wOBA <span class="abbr">Weighted On-Base Average</span></dt>
+          <dd>A rate stat that weighs every way of reaching base (walk, single,
+          double, home run, etc.) by how much it actually contributes to scoring
+          runs, rather than treating all hits equally the way batting average does.</dd>
+        </div>
+
+        <div class="term">
+          <dt>BA &minus; xBA</dt>
+          <dd>The gap between what a hitter actually batted and what their contact
+          quality says they should have batted. A positive number means they hit
+          better than their contact deserved (lucky); a negative number means they
+          hit worse than their contact deserved (unlucky). Example: a .300 BA with a
+          .250 xBA is a +.050 gap &mdash; a lucky season.</dd>
+        </div>
+
+        <div class="term">
+          <dt>BABIP <span class="abbr">Batting Average on Balls in Play</span></dt>
+          <dd>Batting average counting only balls put in play (excludes strikeouts,
+          walks, and home runs). League-average BABIP sits close to .300 almost
+          every season, which makes it a useful quick gut-check for luck &mdash; a hitter
+          running far above or below .300 on balls in play is usually due for some
+          correction. Unlike the other three components in PoR, BABIP has no
+          "expected" counterpart, so it's scaled directly against that season's
+          range rather than compared to a projection.</dd>
+        </div>
+
+        <div class="term">
+          <dt>MAX / RANGE</dt>
+          <dd>For each metric, MAX is the single biggest "luck" gap posted by any
+          qualified hitter that season (i.e., however lucky the luckiest hitter in
+          baseball was). RANGE is the distance between the unluckiest and luckiest
+          hitter that year (MAX minus MIN) &mdash; the full spread of luck that happened
+          across the league. Both are recalculated every season, which is why PoR
+          scores aren't meant to be compared across different years.</dd>
+        </div>
+
+        <div class="term">
+          <dt>wRC+ <span class="abbr">Weighted Runs Created Plus</span></dt>
+          <dd>A park- and league-adjusted offensive stat where 100 is exactly
+          league-average; each point above or below 100 represents 1% better or
+          worse than average. PoR uses wRC+ as a filter on the results (separating
+          out already-elite hitters, who tend to improve less even when unlucky),
+          not as an input to the score itself.</dd>
+        </div>
+
+        <div class="term">
+          <dt>PA <span class="abbr">Plate Appearances</span></dt>
+          <dd>Every trip a hitter takes to the plate, including walks and sacrifices
+          (a broader count than "at-bats"). PoR includes all players with 100+ PA in
+          a given season as its qualification threshold.</dd>
+        </div>
+
+        <div class="term">
+          <dt>Hard-Hit% / Barrel% / Exit Velocity</dt>
+          <dd>Contact-quality metrics that measure how hard and how well a ball was
+          struck. These are useful context alongside a PoR score but are not folded
+          into the PoR formula itself.</dd>
+        </div>
+
+      </dl>
+
+      <p style="margin-top:32px;"><a href="methodology.html" class="btn">See how these are combined into PoR &rarr;</a></p>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="fine">PoR &middot; built on public Baseball Savant &amp; FanGraphs data, 2021&ndash;2024</div>
+    <div style="display:flex; gap:20px;">
+      <a href="index.html">Home</a>
+      <a href="article.html">Article</a>
+      <a href="methodology.html">Methodology</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
