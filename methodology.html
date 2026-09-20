@@ -120,12 +120,18 @@
         <li style="margin-bottom:12px;">
           <strong>xBA (Expected Batting Average)</strong> — a Statcast metric
           that measures the likelihood a batted ball becomes a hit, based on its
-          exit velocity, launch angle, and the hitter's sprint speed. For example,
-          if a player crushes a ball 110 mph off the bat into the gap, but a
-          center fielder makes a diving catch — the actual batting average on
-          that play is .000, but the expected average could be .650, since that
-          exact batted ball results in a hit about 65% of the time.
+          exit velocity, launch angle, and the hitter's sprint speed.
         </li>
+      </ul>
+
+      <div class="callout">
+        For example, if a player crushes a ball 110 mph off the bat into the gap,
+        but a center fielder makes a diving catch — the actual batting average on
+        that play is .000, but the expected average could be .650, since that
+        exact batted ball results in a hit about 65% of the time.
+      </div>
+
+      <ul style="padding-left:22px; margin:20px 0 20px;">
         <li style="margin-bottom:12px;">
           <strong>BA &minus; xBA (Batting Average minus Expected Batting Average)</strong>
           — the gap between what a hitter actually batted and what their contact
@@ -133,11 +139,16 @@
           number means they hit better than their contact deserved — they got
           <strong>lucky</strong>. A <strong>negative</strong> number means they hit
           worse than their contact deserved — they got <strong>unlucky</strong>.
-          <br><br>
-          <em>Example: a hitter batting .300 with an xBA of .250 has a difference
-          of +.050 — a lucky season, since the actual result outran what the
-          quality of contact predicted.</em>
         </li>
+      </ul>
+
+      <div class="callout">
+        Example: a hitter batting .300 with an xBA of .250 has a difference
+        of +.050 — a lucky season, since the actual result outran what the
+        quality of contact predicted.
+      </div>
+
+      <ul style="padding-left:22px; margin:20px 0 20px;">
         <li style="margin-bottom:12px;">
           <strong>MAX<sub>BA</sub></strong> — the single biggest (most positive)
           BA&minus;xBA gap recorded by any qualified hitter that season. In other
@@ -150,20 +161,24 @@
           that year.
         </li>
         <li style="margin-bottom:12px;">
-          <strong>BABIP (Batting Average on Balls in Play)</strong> — has no
-          "expected" counterpart, so it's treated differently: league-average
-          BABIP sits close to .300 every season, so a hitter's raw BABIP is
-          scaled directly against that year's min and max.
+          <strong>BABIP (Batting Average on Balls in Play)</strong> — The hitter's
+          batting average on balls in play. The league average can vary year to
+          year, but normally sits around .300. This is scaled versus the MIN and
+          MAX from the relevant year.
         </li>
       </ul>
 
-      <p>Putting it together: subtracting a hitter's own gap from that season's
-      MAX, then dividing by the RANGE, turns their raw luck number into a clean
-      0&ndash;100 scale — the unluckiest hitter in baseball lands near 100, the
-      luckiest lands near 0, and everyone else falls somewhere in between.
-      Because MAX and RANGE are different every season (some years produce more
-      extreme outliers than others), they have to be recalculated each year — here's
-      what those values have actually looked like across the seasons tested so far:</p>
+      <h2>Putting it together</h2>
+      <p>Subtracting the difference between the actual and expected number from
+      the MAX, then dividing by the RANGE, results in a simple number between a
+      0&ndash;100 scale. The unluckiest hitter in baseball lands near 100, the
+      luckiest lands near 0, and everyone else falls somewhere in between.</p>
+
+      <p>Because MAX and RANGE are different every season (some years produce more
+      extreme outliers than others), they have to be recalculated each year.
+      Through testing, it is more accurate to rescale each year than continue with
+      the same numbers — here's what those values have actually looked like across
+      the seasons tested so far:</p>
 
       <table>
         <caption>Year-specific scaling ranges used</caption>
