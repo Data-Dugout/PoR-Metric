@@ -65,20 +65,31 @@
 
         <div class="term">
           <dt>xBA (Expected Batting Average)</dt>
-          <dd>The batting average a hitter's contact quality says they should have,
-          based on the historical outcomes of similar batted balls.</dd>
+          <dd>Expected Batting Average (xBA) is a Statcast metric that measures the
+          likelihood that a batted ball will become a hit. Each batted ball is
+          assigned an xBA based on how often comparable balls &mdash; in terms of exit
+          velocity, launch angle and, on certain types of batted balls, Sprint Speed
+          &mdash; have become hits since Statcast was implemented Major League wide in
+          2015.</dd>
         </div>
 
         <div class="term">
           <dt>xSLG (Expected Slugging Percentage)</dt>
-          <dd>Same idea as xBA, but for slugging &mdash; it also credits how hard and
-          far the ball was hit, not just whether it fell in for a hit.</dd>
+          <dd>In the same way that each batted ball is assigned an expected batting
+          average, every batted ball is given a single, double, triple and home run
+          probability based on the results of comparable batted balls since Statcast
+          was implemented Major League wide in 2015. For the majority of batted
+          balls, this is achieved using only exit velocity and launch angle.</dd>
         </div>
 
         <div class="term">
           <dt>xwOBA (Expected Weighted On-Base Average)</dt>
-          <dd>The expected version of wOBA (see below) &mdash; a single number estimating
-          overall offensive contribution based on contact quality alone.</dd>
+          <dd>The most all-encompassing of the three expected stats. Expected
+          Weighted On-Base Average (xwOBA) measures a hitter's total offensive value
+          per plate appearance based entirely on the quality of contact (exit
+          velocity and launch angle), walks, hit-by-pitches, and strikeouts &mdash; while
+          completely removing defense, ballpark dimensions, and luck from the
+          equation.</dd>
         </div>
 
         <div class="term">
@@ -127,24 +138,25 @@
 
         <div class="term">
           <dt>Hard-Hit Rate</dt>
-          <dd>The percentage of a hitter's batted balls hit at 95 mph exit velocity
-          or higher. A quick, at-a-glance measure of how much authority a hitter
-          makes contact with.</dd>
+          <dd>Statcast defines a "hard-hit ball" as one hit with an exit velocity of
+          95 mph or higher, and a player's hard-hit rate is simply the percentage of
+          batted balls that were hit at 95 mph or more.</dd>
         </div>
 
         <div class="term">
           <dt>Barrel Rate</dt>
-          <dd>The percentage of a hitter's batted balls that combine enough exit
-          velocity and the right launch angle to be classified a "barrel" &mdash; the
-          ideal combination for extra-base hits. Barrels go for a hit more than half
-          the time and are the most common source of home runs.</dd>
+          <dd>The percentage of batted balls that result in a barrel. To be
+          barreled, a batted ball requires an exit velocity of at least 98 mph. At
+          that speed, balls struck with a launch angle between 26&ndash;30 degrees
+          always garner Barreled classification. For every mph over 98, the range of
+          launch angles expands.</dd>
         </div>
 
         <div class="term">
           <dt>Exit Velocity</dt>
-          <dd>The speed of the ball off the bat, measured in mph. Higher exit
-          velocity generally means better contact quality, and it's a core input to
-          every expected stat on this site.</dd>
+          <dd>Exit Velocity measures the speed of the baseball as it comes off the
+          bat, immediately after a batter makes contact. This is tracked for all
+          Batted Ball Events &mdash; outs, hits and errors.</dd>
         </div>
 
       </dl>
